@@ -18,14 +18,18 @@
 **How I verified:** I used pytest tests/test_watchlist.py -v and pytest tests/ -v to verify the new test file and the broader test suite.
 
 ## Comment 4 — Default visibility
-**My position:**
-**Reasoning:**
-**Tradeoff acknowledged:**
+**My position:** I would keep `public=True` as the default for the current CineLog watchlist feature.
+
+**Reasoning:** CineLog is designed as a community film-tracking app, so a visible watchlist can support discovery and conversation by allowing users to see what others are interested in watching. The watchlist model includes visibility as part of each entry, which suggests that sharing is an intentional part of the feature rather than an unrelated detail. Keeping entries public by default optimizes for participation and discoverability without requiring users to enable sharing for every film they add.
+
+**Tradeoff acknowledged:** A public default is less privacy-protective because it may expose a user’s interests before they have actively chosen to share them. A private default would better protect users who treat a watchlist as a personal reminder. I would still keep the public default for CineLog’s community-oriented use case, but this decision would be stronger if the API also allowed users to choose visibility explicitly when adding an entry.
 
 ## Comment 5 — Sort order
-**My position:**
-**Reasoning:**
-**Engagement with reviewer's point:**
+**My position:** I would change the default ordering to date added, newest first.
+
+**Reasoning:** A watchlist represents films a user is currently considering, so recent additions are likely to be more relevant than alphabetical position. Showing the newest entries first makes it easier for users to find the films they just added and reflects how the watchlist changes over time. It also matches the ordering already used by `get_collection()`, which sorts entries by `date_added.desc()`.
+
+**Engagement with reviewer's point:** I agree with the maintainer that alphabetical ordering is less useful as the default for a growing watchlist because it removes the sense of recency. Alphabetical order is predictable and would help when looking for a specific title, but search or an explicit sort option would handle that use case better. For the default view, newest-added first better reflects current user intent.
 
 ## Comment 6 — Rebase
 **What conflicted:**
