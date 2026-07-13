@@ -32,9 +32,11 @@
 **Engagement with reviewer's point:** I agree with the maintainer that alphabetical ordering is less useful as the default for a growing watchlist because it removes the sense of recency. Alphabetical order is predictable and would help when looking for a specific title, but search or an explicit sort option would handle that use case better. For the default view, newest-added first better reflects current user intent.
 
 ## Comment 6 — Rebase
-**What conflicted:**
-**How I resolved it:**
-**How I verified no conflict remains:**
+**What conflicted:** The direct rebase conflict occurred in `.gitignore` because both `main` and my feature branch had added that file. After the rebase completed, the test suite exposed a second integration issue: `services/watchlist_service.py` still imported `WatchlistEntry`, but the UUID-refactored `models.py` from `main` no longer contained the watchlist model.
+
+**How I resolved it:** I combined the `.gitignore` entries and preserved `.pytest_cache/` from `main`. I then restored `WatchlistEntry` in the current UUID-based model file, changed its `film_id` foreign key from `Integer` to `String(36)`, restored the user and film relationships, and kept the watchlist visibility, timestamp, and uniqueness behavior.
+
+**How I verified no conflict remains:** I ran the watchlist-specific test and the full test suite, searched for unresolved conflict markers and integer-based film ID references, and confirmed that `git log --merges origin/main..HEAD` returned no feature-branch merge commits.
 
 ## PR Description
 <!-- Written at the end — feature overview, design decisions, manual testing steps -->
