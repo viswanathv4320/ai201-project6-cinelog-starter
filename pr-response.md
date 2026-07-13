@@ -9,8 +9,9 @@
 **How I verified:** Searched the repository for `save_to_watchlist` and confirmed no source references remained. I also ran `python -m pytest`, and all 4 existing tests passed.
 
 ## Comment 2 — Deduplication
-**What I did:**
-**How I verified:**
+**What I did:** Added a lookup for an existing `WatchlistEntry` with the same `user_id` and `film_id`. If one exists, `add_to_watchlist()` raises `AlreadyInWatchlistError` instead of creating a duplicate row. This follows the pattern used by `add_to_collection()`.
+
+**How I verified:** Compared the implementation with `add_to_collection()` in `services/collection_service.py` and ran `python -m pytest`.
 
 ## Comment 3 — Missing test
 **What I did:**
