@@ -1,7 +1,7 @@
 # PR Response Doc — CineLog Watchlist Feature
 
 ## AI Usage
-<!-- Fill in at the end — how you used AI tools during this project -->
+I used AI to understand Git concepts that were new to me, especially rebasing, resolving conflicts, and rewriting commit history. I also used it to understand the existing CineLog code patterns and to review my design reasoning and commit messages. I verified the suggestions against the actual code and test results before making changes.
 
 ## Comment 1 — Rename
 **What I did:** Renamed `save_to_watchlist()` to `add_to_watchlist()` in `services/watchlist_service.py` and updated the import and call site in `routes/watchlist/watchlist.py`. This matches the existing `add_to_collection()` naming convention.
@@ -39,4 +39,19 @@
 **How I verified no conflict remains:** I ran the watchlist-specific test and the full test suite, searched for unresolved conflict markers and integer-based film ID references, and confirmed that `git log --merges origin/main..HEAD` returned no feature-branch merge commits.
 
 ## PR Description
-<!-- Written at the end — feature overview, design decisions, manual testing steps -->
+
+### Overview
+This PR adds watchlist support to CineLog. Users can add films to a watchlist and retrieve their saved films. The service validates film IDs, prevents duplicate entries, and uses UUID-based film references after the refactor on `main`.
+
+### Design decisions
+I kept `public=True` as the default because CineLog is a community film-tracking app and visible watchlists support discovery and conversation. I acknowledged that a private default would be more privacy-protective.
+
+I chose newest-added-first as the preferred default sort order because recent additions better represent a user’s current viewing intent. Alphabetical order is useful for locating a specific title, but it would be better offered as an optional sort.
+
+### Manual testing
+1. Start the API with `python app.py`.
+2. Send a `POST` request to `/watchlist/<user_id>/add` with a JSON body containing a valid UUID `film_id`.
+3. Send a `GET` request to `/watchlist/<user_id>` to confirm the film appears.
+4. Repeat the same `POST` request and confirm the duplicate is rejected.
+5. Try adding a nonexistent `film_id` and confirm `FilmNotFoundError` is raised.
+6. Run `pytest tests/ -v`.
