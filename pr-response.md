@@ -14,8 +14,8 @@
 **How I verified:** Compared the implementation with `add_to_collection()` in `services/collection_service.py` and ran `python -m pytest`.
 
 ## Comment 3 — Missing test
-**What I did:**
-**How I verified:**
+**What I did:** Added tests/test_watchlist.py with a missing-film test for add_to_watchlist(), using the collection missing-film test as the model.
+**How I verified:** I used pytest tests/test_watchlist.py -v and pytest tests/ -v to verify the new test file and the broader test suite.
 
 ## Comment 4 — Default visibility
 **My position:**
