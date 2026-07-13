@@ -4,6 +4,10 @@
 instance/
 __pycache__/
 *.pyc
+<<<<<<< HEAD
 .pytest_cache/
+=======
+>>>>>>> 92a2855 (chore: add gitignore)
 .venv/
 venv/
+.pytest_cache/
