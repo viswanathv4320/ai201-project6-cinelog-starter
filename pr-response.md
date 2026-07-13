@@ -55,3 +55,7 @@ I chose newest-added-first as the preferred default sort order because recent ad
 4. Repeat the same `POST` request and confirm the duplicate is rejected.
 5. Try adding a nonexistent `film_id` and confirm `FilmNotFoundError` is raised.
 6. Run `pytest tests/ -v`.
+
+## Final Commit History
+
+![Final conventional commit history](docs/git-history.png)
